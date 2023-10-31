@@ -8,7 +8,7 @@ using namespace std;
 
 string name;
 ofstream file;
-int hour = 10;
+int hour = 0;
 int minute = 0;
 int second = 0;
 int choice;
