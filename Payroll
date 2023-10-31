@@ -1,0 +1,136 @@
+#include <iostream>
+#include <windows.h>
+#include <ctime>
+#include <fstream>
+#include <conio.h>
+
+using namespace std;
+
+string name;
+ofstream file;
+int hour = 10;
+int minute = 0;
+int second = 0;
+int choice;
+int wait = 3;
+time_t currentTime = time(nullptr);
+double salary, deduction;
+int hourlyRate = 50;
+char ch;
+
+void Salary()
+{
+    system("cls");
+    if(hour > 0)
+    {
+    cout << "Employee's Name: " << name << endl;
+    cout << "Time worked: " << hour << ":" << minute << ":" << second << endl;
+    cout << "Salary: " << hourlyRate * hour;
+    file << endl << "Time Worked: " << hour << ":" << minute << ":" << second << endl << "Salary: " << hourlyRate * hour
+    << "\n_______________________________________________________________________________________";
+    file.close();
+    }
+    else
+    {
+    system("cls");
+    cout << "Did you even worked?\n";
+    file << endl << "Did you even worked?";
+    }
+
+
+}
+void Work()
+{
+
+    cout << "Do you want to work now?\n";
+    cout << "1. Start\n";
+    cout << "2. NO\n";
+    cout << "Your Choice: "; cin >> choice;
+    cout << "\n\n";
+
+
+    if(choice == 1)
+    {
+            while(wait >= 0)
+            {   system("cls");
+                cout << "Date and Time-in: " << ctime(&currentTime);
+
+
+                cout << "\nWait(" << wait << ")";
+                wait--;
+                Sleep(1000);
+            }
+            file << endl << "Date and Time-in: " << ctime(&currentTime);
+
+
+        while(second <= 59)
+        {
+            Sleep(1000);
+            system("cls");
+            cout << "___________________________________\n";
+            cout << "| Hour(s) | Minute(s) | Second(s) |\n";
+            cout << "|                                 | ";
+            cout << "\n|   " << hour << "     :   " << minute << "      :   " << second << "\t  |";
+            cout << "\n|_________________________________|";
+            cout << "\n\nPress Any key to stop working.";
+            second++;
+
+            if(second == 60)
+            {
+            second = 0;
+            minute++;
+            }
+
+            if(minute == 60)
+            {
+            minute = 0;
+            hour++;
+            }
+
+
+            if (_kbhit()) {
+            ch = _getch();
+            wait = 3;
+            while(wait >= 0)
+            {  system("cls");
+            cout << "\n\nThank you for your service!\n\n";
+
+            cout << "Date and Time-out: " << ctime(&currentTime);
+
+            cout << "\nWait(" << wait << ")";
+            wait--;
+            Sleep(1000);
+
+            }
+            file << endl << "Date and Time-out: " << ctime(&currentTime);
+
+            Salary();
+            break;
+
+            }
+
+
+
+        }
+    }else if(choice == 2)
+    {
+        system("cls");
+        cout << "Oke";
+        file << endl << "- Did not Work";
+        void exit();
+    }
+
+}
+
+
+int main() {
+
+    cout << "Enter Employee's Name: ";
+    getline(cin, name);
+    file.open(name +".txt");
+    file << "Employee's Name: " << name;
+
+    Work();
+
+    return 0;
+}
